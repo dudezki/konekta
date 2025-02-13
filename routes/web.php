@@ -2,15 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
+use App\Http\Controllers\OrderManager;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProductManager;
+use Laravel\Jetstream\Rules\Role;
+
+Route::get('/', [ProductManager::class, 'index'])->name('home');
 
 Auth::routes(['verify' => true]);
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
 
 Route::middleware([
     'auth:sanctum',
@@ -30,7 +31,16 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/profile', function(){
         return "Hi";
     });
+
+    Route::get("/cart/{id}", [ProductManager::class, 'addToCart'])->name('cart.add');
+    Route::get("/cart", [ProductManager::class, 'showCart'])->name('cart.show');
+    Route::get("/checkout", [OrderManager::class, 'showCheckout'])->name('checkout.show');
+    Route::post("/checkout", [OrderManager::class, 'checkoutPost'])->name('checkout.post');
+
 });
+Route::get("product/{slug}", [ProductManager::class, 'details'])->name('products.details');
+
+
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');

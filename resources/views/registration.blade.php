@@ -30,7 +30,7 @@
                         this.classList.toggle('fa-eye-slash');
                     });
                 </script>
-            <button type="submit" class="btn btn-primary w-100 mb-3" style="border-radius: 20px; height: 40px; font-size: 13px;">Sign Up</button>
+            <button type="submit" class="btn btn-primary w-100 mb-3" style="border: 1px solid gray; background: transparent; color: gray; border-radius: 20px; height: 40px; font-size: 13px;">Sign Up</button>
             <a class="mb-3 text-center d-block" href="{{route('login.post')}}" style="text-decoration: none; color:black;">Already have an account?</a>
             <div class="d-flex align-items-center justify-content-center" style="width: 500px;">
                 <hr style="flex-grow: 1; border: none; border-top: 1px solid #000;">
