@@ -27,7 +27,7 @@
                 <div class="mt-5 col-12 col-md-6 col-lg-3">
                     <a href="{{route("products.details", $product->slug)}}" style="text-decoration: none; color: inherit;">
                         <div class="card p-2 shadow-sm mb-5">
-                            <img src="images/{{$product->image}}" width="300px">
+                            <img src="images/{{$product->image}}" width="290px" height="300px">
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <span style="font-size: 20px;">{{$product->name}}</span>
                                 <button class="btn btn-light" style="background: transparent; width: 40px;" onclick="toggleHeart(this)">

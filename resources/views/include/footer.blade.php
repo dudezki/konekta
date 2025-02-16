@@ -1,37 +1,66 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <footer>
-        <div class="container">
-            <div class="row" style="margin-left: 20%;">
-                <div class="col-md-4">
-                    <h6 class="mb-3">CUSTOMER SERVICE</h6>
-                    <p style="margin: 0; padding: 0;">Help Centre</p>
-                    <p style="margin: 0; padding: 0;">Payment methods</p>
-                    <p style="margin: 0; padding: 0;">Order Tracking</p>
-                    <p style="margin: 0; padding: 0;">Free Shipping</p>
-                    <p style="margin: 0; padding: 0;">Return & Refund</p>
-                    <p style="margin: 0; padding: 0;">Konekta guarantee</p>
-                    <p style="margin: 0; padding: 0;">Contact us</p>
-                </div>
-                <div class="col-md-4">
-                    <h6 class="mb-3">ABOUT KONEKTA</h6>
-                    <p style="margin: 0; padding: 0;">About us</p>
-                    <p style="margin: 0; padding: 0;">Privay Policy</p>
-                    <p style="margin: 0; padding: 0;">Media Content</p>
-                </div>
-                <div class="col-md-4">
-                    <h6 class="mb-3">FOLLOW US</h6>
-                    <p style="margin: 0; padding: 0;">Facebook</p>
-                    <p style="margin: 0; padding: 0;">Instagram</p>
-                    <p style="margin: 0; padding: 0;">Twitter</p>
-                    <p style="margin: 0; padding: 0;">LinkedIn</p>
-                </div>
-            </div>
-            <div class="col-md-12 text-center">
-                    <p>
-                        <a href="{{ url('/privacy-policy') }}" style="text-decoration: none; color:black;">Privacy Policy</a> |
-                        <a href="{{ url('/terms-of-service') }}" style="text-decoration: none; color:black;">Terms & Conditions</a>
-                    </p>
-                    <p>&copy; {{ date('Y') }} Konekta. All rights reserved.</p>
-                </div>
+<style>
+    footer {
+        width: 100%;
+        background-color: #f8f9fa; /* Light gray background */
+        padding: 20px 0;
+        position: relative;
+        bottom: 0;
+    }
+    .footer-container {
+        width: 80%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .footer-section {
+        flex: 1;
+        min-width: 250px;
+        margin-bottom: 20px;
+    }
+    .footer-section h6 {
+        font-weight: bold;
+    }
+    .footer-section p {
+        margin: 5px 0;
+    }
+    .footer-bottom {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h6>CUSTOMER SERVICE</h6>
+            <p>Help Centre</p>
+            <p>Payment methods</p>
+            <p>Order Tracking</p>
+            <p>Free Shipping</p>
+            <p>Return & Refund</p>
+            <p>Konekta guarantee</p>
+            <p>Contact us</p>
         </div>
-    </footer>
+        <div class="footer-section">
+            <h6>ABOUT KONEKTA</h6>
+            <p>About us</p>
+            <p>Privacy Policy</p>
+            <p>Media Content</p>
+        </div>
+        <div class="footer-section">
+            <h6>FOLLOW US</h6>
+            <p>Facebook</p>
+            <p>Instagram</p>
+            <p>Twitter</p>
+            <p>LinkedIn</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>
+            <a href="{{ url('/privacy-policy') }}" style="text-decoration: none; color:black;">Privacy Policy</a> |
+            <a href="{{ url('/terms-of-service') }}" style="text-decoration: none; color:black;">Terms & Conditions</a>
+        </p>
+        <p>&copy; {{ date('Y') }} Konekta. All rights reserved.</p>
+    </div>
+</footer>
