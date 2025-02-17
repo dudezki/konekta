@@ -22,6 +22,11 @@
             <i class="fas fa-shopping-cart"></i> My Cart
           </a>
         </li>
+      <li class="nav-item">
+          <a class="nav-link" href="{{route('favorites.show')}}">
+            <i class="fas fa-heart"></i> Favorites
+          </a>
+        </li>
       @auth
         <li class="nav-item">
           <a class="nav-link" href="{{route('logout')}}" style="margin-left: 150px;">Logout</a>

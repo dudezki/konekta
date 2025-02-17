@@ -34,9 +34,11 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get("/cart/{id}", [ProductManager::class, 'addToCart'])->name('cart.add');
     Route::get("/cart", [ProductManager::class, 'showCart'])->name('cart.show');
+    Route::post('/cart/{id}', [ProductManager::class, 'addToCart'])->name('cart.add');
     Route::get("/checkout", [OrderManager::class, 'showCheckout'])->name('checkout.show');
     Route::post("/checkout", [OrderManager::class, 'checkoutPost'])->name('checkout.post');
-
+    Route::post('/favorites/toggle/{id}', [ProductManager::class, 'toggleFavorite'])->name('favorites.toggle');
+    Route::get('/favorites', [ProductManager::class, 'showFavorites'])->name('favorites.show');
 });
 Route::get("product/{slug}", [ProductManager::class, 'details'])->name('products.details');
 
