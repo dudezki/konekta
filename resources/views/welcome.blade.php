@@ -11,7 +11,8 @@
         minim veniam, quis nostrud exercitation ullamco <br>
         laboris nisi ut aliquip ex ea commodo consequat. </p>
         <div>
-            <button class="btn btn-primary" style="color: black; border: 2px solid black; background: transparent; border-radius: 20px; width: 150px; height: 40px; font-size: 15px;">Shop Now</button>
+            <a class="btn btn-primary" href="{{route('merchant_registration')}}">List Your Products</a>
+            <a class="btn btn-primary" href="{{route('user_registration')}}">Buy Products</a>
         </div>
     </div>
     <div class="text-center" style="float: right; flex: 0;">

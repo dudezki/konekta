@@ -3,7 +3,7 @@
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <form action="{{route('registration.post')}}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px;">
+        <form action="{{route('merchant_registration.post')}}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px;">
             @csrf
             <h2>Sign Up</h2>
             <div class="mb-3">
@@ -31,7 +31,7 @@
                     });
                 </script>
             <button type="submit" class="btn btn-primary w-100 mb-3" style="border: 1px solid gray; background: transparent; color: gray; border-radius: 20px; height: 40px; font-size: 13px;">Sign Up</button>
-            <a class="mb-3 text-center d-block" href="{{route('login.post')}}" style="text-decoration: none; color:black;">Already have an account?</a>
+            <a class="mb-3 text-center d-block" href="{{route('merchant_login.post')}}" style="text-decoration: none; color:black;">Already have an account?</a>
             <div class="d-flex align-items-center justify-content-center" style="width: 500px;">
                 <hr style="flex-grow: 1; border: none; border-top: 1px solid #000;">
                 <span class="mx-2">or</span>
