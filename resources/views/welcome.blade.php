@@ -1,42 +1,254 @@
 @extends('layout')
 @section('title', 'Home')
 @section('content')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <<div class="d-flex align-items-center justify-content-start" style="position: absolute; top: 50%; left: 10%; transform: translateY(-50%); width: auto;">
-    <div class="content text-left">
-        <h1 style="font-size: 90px;">Lorem Ipsum</h1>
-        <p style="font-size: 20px;">Lorem ipsum dolor sit amet, consectetur <br>
-        adipiscing elit, sed do eiusmod tempor incididunt <br>
-        ut labore et dolore magna aliqua. Ut enim ad <br>   
-        minim veniam, quis nostrud exercitation ullamco <br>
-        laboris nisi ut aliquip ex ea commodo consequat. </p>
-        <div>
-            <a class="btn btn-primary" href="{{route('merchant_registration')}}">List Your Products</a>
-            <a class="btn btn-primary" href="{{route('user_registration')}}">Buy Products</a>
+    <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('{{ asset("fonts/Montserrat-Regular.otf") }}') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'Montserrat-Black';
+            src: url('{{ asset("fonts/Montserrat-Black.otf") }}') format('opentype');
+        }
+
+        body{
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        h1{
+            font-family: 'Montserrat-Black', sans-serif;
+            text-align: center;
+        }
+
+        p{
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+        }
+
+        h2{
+            font-family: 'Montserrat-Black', sans-serif;
+            text-align: center;
+        }
+        
+        .btn1 {
+            background-color: #109908;
+            padding: 15px 30px;
+            border-radius: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Montserrat-Black', sans-serif;
+            font-size: 24px;
+            display: inline-block;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn1:hover {
+            background-color: #0c7206;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .btn2 {
+            background-color: #3498db;
+            padding: 15px 30px;
+            border-radius: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Montserrat-Black', sans-serif;
+            font-size: 24px;
+            display: inline-block;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn2:hover {
+            background-color: #2980b9;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .or-text {
+            display: block;
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            font-family: 'Montserrat-Bold', sans-serif;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .img-LP {
+            width: 715px;
+            height: 475px;
+            border-radius: 10px;
+            margin-left: 50px;
+        }
+
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 1400px;
+            padding: 0 20px;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card{
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(16, 153, 8, 0.3);
+            width: 290px;
+            height: 320px;
+            overflow: hidden;
+            border-radius: 10px;
+            background-color: white;
+            padding: 20px 20px 0px 20px;
+        }
+
+        .card:hover {
+            background-color: #65E55E;
+        }
+
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        .card-content {
+            padding: 0px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            color: #333;
+            line-height: 1.4;
+            height: 25px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: baseline;
+            margin: 0;
+        }
+
+        .price {
+            font-size: 24px;
+            font-family: 'Montserrat-Black', sans-serif;
+            margin: 0;
+            color: #333;
+        }
+
+        .unit {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 0;
+        }
+
+        .rating-value {
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .rating-count {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Custom 5-column layout */
+        @media (min-width: 992px) {
+            .col-lg-2-4 {
+                flex: 0 0 20%;
+                max-width: 20%;
+            }
+        }
+    </style>
+    <div class="hero-section">z
+        <div class="content">
+            <h1 style="font-size: 64px;">Lorem ipsum dolor</h1>
+            <p style="font-size: 40px;">Lorem ipsum dolor</p>
+            <p style="font-size: 40px;">Lorem ipsum dolor</p>
+            <div class="button-container">
+                <a class="btn1" href="{{route('merchant_registration')}}">List Your Products</a>
+                <div class="or-text">or</div>
+                <a class="btn2" href="{{route('user_registration')}}">Shop Now</a>
+            </div>
         </div>
-    </div>
-    <div class="text-center" style="float: right; flex: 0;">
-        <img src="{{ asset('images/cart.svg') }}" style="margin-left: 150px; width: 650px; height: 650px;">
-    </div>
+        <div class="image-container">
+            <img src="{{ asset('images/LP.jpg') }}" class="img-LP">
+        </div>
     </div>
     <div class="container" style="margin-top: 50%;">
         <main class="container">
          <section>
-            <div class="row">
-                <h2 style="text-align: center;">Products</h2>
-                @foreach($products as $product)
-                <div class="mt-5 col-12 col-md-6 col-lg-3">
-                    <div class="card p-2 shadow-sm mb-5">
+            <div class="row justify-content-center g-4" style="margin-bottom: 100px;">
+                <h2>Featured Products</h2>
+                @foreach($products->take(10) as $product)
+                <div class="mt-5 col-12 col-md-6 col-lg-2-4 d-flex justify-content-center">
+                    <div class="card">
                         <a href="{{route("products.details", $product->slug)}}" style="text-decoration: none; color: inherit;">
-                            <img src="{{ asset('images/' . $product->image) }}" width="290px" height="300px">
-                            <div style="display: flex; align-items: center; justify-content: space-between;">
-                                <span style="font-size: 20px;">{{$product->name}}</span>
+                            <img src="{{ asset('images/' . $product->image) }}">
+                            <div class="card-content">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span class="product-name">{{$product->name}}</span>
+                                </div>
+                                <div class="price-container">
+                                    <p class="price">₱{{$product->price}}</p>
+                                    <span class="unit">per kilogram</span>
+                                </div>
+                                <div class="rating">
+                                    @php
+                                        $rating = $product->reviews->avg('rating') ?? 0;
+                                        $rating = number_format($rating, 1);
+                                    @endphp
+                                    <span class="rating-value">
+                                        <i class="fa-solid fa-star"></i>
+                                        {{ $rating }}
+                                    </span>
+                                    <span class="rating-count">({{ $product->reviews->count() }} reviews)</span>
+                                </div>
                             </div>
-                            <div>₱{{$product->price}} per kilogram</div>
                         </a>
-                        <button class="btn btn-light" style="background: transparent; width: 40px;" onclick="toggleFavorite({{ $product->id }}, this)">
-                            <i class="{{ in_array($product->id, $favorites) ? 'fas' : 'far' }} fa-heart" style="color: {{ in_array($product->id, $favorites) ? 'red' : 'black' }};"></i>
-                        </button>
                     </div>
                 </div>
                 @endforeach
@@ -44,29 +256,4 @@
          </section>
     </main> 
     </div>
-
-    <script>
-        function toggleFavorite(productId, button) {
-            fetch(`/favorites/toggle/${productId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const icon = button.querySelector('i');
-                if (data.status === 'added') {
-                    icon.classList.remove('far');
-                    icon.classList.add('fas');
-                    icon.style.color = 'red';
-                } else {
-                    icon.classList.remove('fas');
-                    icon.classList.add('far');
-                    icon.style.color = 'black';
-                }
-            });
-        }
-    </script>
 @endsection

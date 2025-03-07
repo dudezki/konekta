@@ -7,43 +7,65 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Log;
 
 class AuthManager extends Controller
 {
-    function login() {
-        if (Auth::check()) {
+    function merchant_login() {
+        // Add debugging information
+        Log::info('Merchant login attempt', [
+            'is_authenticated' => Auth::guard('merchant')->check(),
+            'user' => Auth::guard('merchant')->user()
+        ]);
+
+        // Only redirect if the merchant is actually authenticated
+        if (Auth::guard('merchant')->check() && Auth::guard('merchant')->user()) {
             return redirect(route('home'));
         }
         return view('merchant_login');
     }
 
-    function registration() {
-        if (Auth::check()) {
+    function merchant_registration() {
+        if (Auth::guard('merchant')->check()) {
             return redirect(route('home'));
         }
         return view('merchant_registration');
     }
 
 
-function loginPost(Request $request){
+function merchant_loginPost(Request $request){
     $request->validate([
         'email' => 'required',
         'password' => 'required'
     ]);
 
     $credentials = $request->only('email', 'password');
-    if (Auth::guard('web')->attempt($credentials)) {
+    
+    // Debug the credentials
+    Log::info('Login attempt credentials:', ['email' => $credentials['email']]);
+    
+    // Check if merchant exists
+    $merchant = Merchant::where('email', $credentials['email'])->first();
+    if (!$merchant) {
+        return redirect(route('merchant_login'))->with("error", "Email not found");
+    }
+
+    if (Auth::guard('merchant')->attempt($credentials)) {
         return redirect()->intended(route('home'));
     }
-    return redirect(route('merchant_login'))->with("error", "Login details are not valid");
+    
+    return redirect(route('merchant_login'))->with("error", "Invalid password");
 }
 
-function registrationPost(Request $request){
+function merchant_registrationPost(Request $request){
     $request->validate([
         'name' => 'required',
         'business_name' => 'required',
         'phone' => 'required',
-        'email' => 'required|email|unique:users',
+        'email' => 'required|email|unique:merchants',
         'password' => [
             'required',
             'string',
@@ -70,8 +92,15 @@ function registrationPost(Request $request){
 
 
     function logout(){
-        Session::flush();
-        Auth::logout();
-        return redirect(route('login'));
+        if (Auth::guard('merchant')->check()) {
+            Auth::guard('merchant')->logout();
+            Session::flush();
+            return redirect(route('merchant_login'))->with('success', 'Logged out successfully');
+        } else if (Auth::check()) {
+            Auth::logout();
+            Session::flush();
+            return redirect(route('user_login'))->with('success', 'Logged out successfully');
+        }
+        return redirect(route('home'));
     }
 }

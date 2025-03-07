@@ -6,7 +6,7 @@
         <div class="w-100" style="max-width: 500px;">
             <form action="{{route('merchant_login.post')}}" method="POST" class="mt-3">
                 @csrf
-                <h2 class="text-center">Log In</h2>
+                <h2 style="text-align: center;">Merchant Log In</h2>
                 <div class="mb-3">
                     <input type="email" class="form-control" name="email" placeholder="Enter your Email address" style="border-radius: 20px; font-size: 13px; height: 40px">
                 </div>

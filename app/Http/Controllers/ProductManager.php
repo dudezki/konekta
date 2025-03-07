@@ -13,7 +13,7 @@ class ProductManager extends Controller
 {
 
     public function details($slug) {
-        $product = Products::where('slug', $slug)->first();
+        $product = Products::with(['merchant', 'reviews.user'])->where('slug', $slug)->first();
         return view('details', compact('product'));
     }
 

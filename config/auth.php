@@ -7,15 +7,14 @@ return [
     | Authentication Defaults
     |--------------------------------------------------------------------------
     |
-    | This option defines the default authentication "guard" and password
-    | reset "broker" for your application. You may change these values
-    | as required, but they're a perfect start for most applications.
+    | Defines the default authentication "guard" and password reset "broker".
     |
     */
 
     'defaults' => [
         'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => 'merchants', // Change this to match the correct provider
+        'passwords' => 'users',
+        'login' => 'user_login' 
     ],
 
     /*
@@ -24,19 +23,18 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you define every authentication guard for your application.
-    | A default configuration has been set for you using session storage.
     |
     */
 
     'guards' => [
-        'merchant' => [
+        'web' => [ // For Users
             'driver' => 'session',
-            'provider' => 'merchants',
+            'provider' => 'users', // Change this to 'users'
         ],
 
-        'web' => [
+        'merchant' => [ // For Merchants
             'driver' => 'session',
-            'provider' => 'merchants', // Ensure this points to merchants
+            'provider' => 'merchants',
         ],
     ],
 
@@ -45,12 +43,16 @@ return [
     | User Providers
     |--------------------------------------------------------------------------
     |
-    | Each authentication guard has a user provider, which defines how the
-    | users are retrieved from your database or storage system.
+    | User providers define how users are retrieved from the database.
     |
     */
 
     'providers' => [
+        'users' => [ // Add this for Users
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class, // Ensure this is correct
+        ],
+
         'merchants' => [
             'driver' => 'eloquent',
             'model' => App\Models\Merchant::class, // Ensure this is correct
@@ -62,11 +64,18 @@ return [
     | Resetting Passwords
     |--------------------------------------------------------------------------
     |
-    | These settings specify how Laravel's password reset system should work.
+    | These settings define how Laravel handles password resets.
     |
     */
 
     'passwords' => [
+        'users' => [ // Add password reset settings for Users
+            'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
         'merchants' => [
             'provider' => 'merchants',
             'table' => 'password_reset_tokens',

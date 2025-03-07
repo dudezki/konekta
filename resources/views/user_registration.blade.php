@@ -5,7 +5,7 @@
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
         <form action="{{route('user_registration.post')}}" method="POST" class="ms-auto me-auto mt-3" style="width: 500px;">
             @csrf
-            <h2>Sign Up</h2>
+            <h2 style="text-align: center;">User Sign Up</h2>
             <div class="mb-3">
                 <input type="text" class="form-control" name="name" placeholder="Enter your Name" style="height: 40px; border-radius: 20px; font-size: 13px;">
             </div>

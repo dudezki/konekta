@@ -11,39 +11,43 @@ use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\UserController;
 use App\Models\Merchant;
 use Laravel\Jetstream\Rules\Role;
+use App\Http\Controllers\ReviewController;
 
 Route::get('/', [ProductManager::class, 'index'])->name('home');
 
-Auth::routes(['verify' => true]);
+Auth::routes(['login' => false]); // Completely disables default /login route
 
-// Dashboard Routes (Protected by Auth Middleware)
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-// ])->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('dashboard');
-//     })->name('dashboard');
-// });
+Route::get('/login', function () {
+    return redirect('/user_login');
+})->name('login');
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
 
 // Merchant Authentication Routes
-Route::get('/merchant_login', [AuthManager::class, 'login'])->name('merchant_login');
-Route::post('/merchant_login', [AuthManager::class, 'loginPost'])->name('merchant_login.post');
-Route::get('/merchant_registration', [AuthManager::class, 'registration'])->name('merchant_registration');
-Route::post('/merchant_registration', [AuthManager::class, 'registrationPost'])->name('merchant_registration.post');
-Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
+Route::middleware(['web'])->group(function () {
+    Route::get('/merchant_login', [AuthManager::class, 'merchant_login'])->name('merchant_login');
+    Route::post('/merchant_login', [AuthManager::class, 'merchant_loginPost'])->name('merchant_login.post');
+    Route::get('/merchant_registration', [AuthManager::class, 'merchant_registration'])->name('merchant_registration');
+    Route::post('/merchant_registration', [AuthManager::class, 'merchant_registrationPost'])->name('merchant_registration.post');
+    Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
+});
 
-Route::get('/user', [UserController::class, 'user_login'])->name('user_login');
-Route::post('/user', [UserController::class, 'loginPost'])->name('user_login.post');
+Route::get('/user_login', [UserController::class, 'user_login'])->name('user_login');
+Route::post('/user_login', [UserController::class, 'user_loginPost'])->name('user_login.post');
 Route::get('/user_registration', [UserController::class, 'user_registration'])->name('user_registration');
-Route::post('/user_registration', [UserController::class, 'registrationPost'])->name('user_registration.post');
+Route::post('/user_registration', [UserController::class, 'user_registrationPost'])->name('user_registration.post');
 
 // Protected Routes for Authenticated Users
 Route::middleware(['auth'])->group(function () {
+    config(['auth.login_path' => 'user_login']);
+
     Route::get('/profile', function () {
-        return "Hi";
-    });
+        return view('profile.show');
+    })->name('profile.show');
 
     Route::get("/cart/{id}", [ProductManager::class, 'addToCart'])->name('cart.add.get');
     Route::post('/cart/{id}', [ProductManager::class, 'addToCart'])->name('cart.add.post');
@@ -54,14 +58,26 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/favorites/toggle/{id}', [ProductManager::class, 'toggleFavorite'])->name('favorites.toggle');
     Route::get('/favorites', [ProductManager::class, 'showFavorites'])->name('favorites.show');
+
+    // Review Routes
+    Route::post('/products/{id}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 });
 
-// Merchant-Specific Routes (Uses 'merchant' Guard)
-// Route::middleware(['auth:merchant'])->group(function () {
-//     Route::get('/merchant/{id}', [MerchantController::class, 'show'])->name('merchant.profile');
-// });
+// User Profile Routes
+Route::get('/user/profile', [UserController::class, 'show'])->name('user.profile');
+Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
+Route::get('/user/change-email', [UserController::class, 'changeEmail'])->name('user.changeEmail');
+Route::post('/user/change-email', [UserController::class, 'updateEmail'])->name('user.updateEmail');
+Route::get('/user/change-phone', [UserController::class, 'changePhone'])->name('user.changePhone');
+Route::post('/user/change-phone', [UserController::class, 'updatePhone'])->name('user.updatePhone');
 
-Route::get('/merchant/{id}', [MerchantController::class, 'showProfile']);
+// Merchant Profile Routes
+Route::get('/seller/{id}', [MerchantController::class, 'showProfile'])->name('seller.profile');
+
+Route::middleware(['auth:merchant'])->group(function () {
+    Route::put('/merchant/update-profile', [MerchantController::class, 'updateProfile'])
+        ->name('merchant.update-profile');
+});
 
 // Product Detail Route
 Route::get("product/{slug}", [ProductManager::class, 'details'])->name('products.details');
@@ -80,3 +96,5 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::get('/products', [ProductManager::class, 'index'])->name('products');
