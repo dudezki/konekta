@@ -26,10 +26,11 @@ class ProductManager extends Controller
                 "products.name",
                 "products.price",
                 "products.image",
-                "products.slug"
+                "products.slug",
+                "products.stock"
             )
             ->where("cart.user_id", Auth::user()->id)
-            ->groupBy("cart.product_id", "products.name", "products.price", "products.image", "products.slug")
+            ->groupBy("cart.product_id", "products.name", "products.price", "products.image", "products.slug", "products.stock")
             ->get();
 
         return view('cart', compact('cartItems'));

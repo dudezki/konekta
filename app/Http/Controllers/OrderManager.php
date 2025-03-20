@@ -53,6 +53,43 @@ class OrderManager extends Controller
             return redirect(route('cart.show'))->with('success', 'Order placed successfully!');
         }
         return redirect(route('cart.show'))->with('error', 'Something went wrong!');
+    }
 
+    function showProductCheckout($id) {
+        $product = \App\Models\Products::findOrFail($id);
+        return view('checkout', ['product' => $product, 'quantity' => request('quantity', 1)]);
+    }
+
+    function checkoutProductPost(Request $request, $id) {
+        $request->validate([
+            'address' => 'required',
+            'pincode' => 'required',
+            'phone' => 'required',
+            'quantity' => 'required|numeric|min:1'
+        ]);
+
+        $product = \App\Models\Products::findOrFail($id);
+        
+        if ($product->stock < $request->quantity) {
+            return back()->with('error', 'Not enough stock available.');
+        }
+
+        $order = new Orders();
+        $order->user_id = \Illuminate\Support\Facades\Auth::user()->id;
+        $order->address = $request->address;
+        $order->pincode = $request->pincode;
+        $order->phone = $request->phone;
+        $order->product_id = json_encode([$id]);
+        $order->total_price = $product->price * $request->quantity;
+        $order->quantity = json_encode([$request->quantity]);
+
+        if($order->save()){
+            // Decrease the stock
+            $product->stock -= $request->quantity;
+            $product->save();
+            
+            return redirect()->route('products.details', $product->slug)->with('success', 'Order placed successfully!');
+        }
+        return back()->with('error', 'Something went wrong!');
     }
 }

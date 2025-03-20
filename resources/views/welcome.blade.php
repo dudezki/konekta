@@ -102,6 +102,14 @@
             padding: 0 20px;
         }
 
+        .profile-divider {
+        width: 100%;
+        max-width: 1300px;
+        margin: 3rem auto;
+        border: none;
+        border-top: 1px solid rgba(16, 153, 8, 0.9);
+    }
+
         .content {
             flex: 1;
         }
@@ -203,7 +211,7 @@
             }
         }
     </style>
-    <div class="hero-section">z
+    <div class="hero-section">
         <div class="content">
             <h1 style="font-size: 64px;">Lorem ipsum dolor</h1>
             <p style="font-size: 40px;">Lorem ipsum dolor</p>
@@ -211,7 +219,7 @@
             <div class="button-container">
                 <a class="btn1" href="{{route('merchant_registration')}}">List Your Products</a>
                 <div class="or-text">or</div>
-                <a class="btn2" href="{{route('user_registration')}}">Shop Now</a>
+                <a class="btn2" href="{{route('shop')}}">Shop Now</a>
             </div>
         </div>
         <div class="image-container">
@@ -223,6 +231,7 @@
          <section>
             <div class="row justify-content-center g-4" style="margin-bottom: 100px;">
                 <h2>Featured Products</h2>
+                <hr class="profile-divider">
                 @foreach($products->take(10) as $product)
                 <div class="mt-5 col-12 col-md-6 col-lg-2-4 d-flex justify-content-center">
                     <div class="card">

@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Models\Merchant;
 use Laravel\Jetstream\Rules\Role;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ShopController;
 
 Route::get('/', [ProductManager::class, 'index'])->name('home');
 
@@ -55,6 +56,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get("/checkout", [OrderManager::class, 'showCheckout'])->name('checkout.show');
     Route::post("/checkout", [OrderManager::class, 'checkoutPost'])->name('checkout.post');
+    Route::get("/checkout/product/{id}", [OrderManager::class, 'showProductCheckout'])->name('checkout.product');
+    Route::post("/checkout/product/{id}", [OrderManager::class, 'checkoutProductPost'])->name('checkout.product.post');
 
     Route::post('/favorites/toggle/{id}', [ProductManager::class, 'toggleFavorite'])->name('favorites.toggle');
     Route::get('/favorites', [ProductManager::class, 'showFavorites'])->name('favorites.show');
@@ -78,6 +81,9 @@ Route::middleware(['auth:merchant'])->group(function () {
     Route::put('/merchant/update-profile', [MerchantController::class, 'updateProfile'])
         ->name('merchant.update-profile');
 });
+
+// Shop Route
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 
 // Product Detail Route
 Route::get("product/{slug}", [ProductManager::class, 'details'])->name('products.details');

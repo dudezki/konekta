@@ -1,7 +1,12 @@
   <style>
     @font-face {
-      font-family: Montserrat-Black;
+      font-family: 'Montserrat-Black';
       src: url('{{ asset('fonts/Montserrat-Black.otf') }}');
+    }
+
+    @font-face {
+      font-family: 'Montserrat-Regular';
+      src: url('{{ asset('fonts/Montserrat-Regular.otf') }}');
     }
 
     * {
@@ -38,6 +43,10 @@
       display: flex;
       align-items: center;
       height: 100%;
+    }
+
+    .navbar-brand:hover {
+      color: #00274D;
     }
 
     /* Nav Items Container */
@@ -102,25 +111,27 @@
     .dropdown {
       position: absolute;
       top: 100%;
-      left: 0;
+      left: 0px;
       background: white;
       border-radius: 5px;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
       display: none;
       width: 150px;
-      padding: 10px 0;
+      padding: 8px 0;
     }
 
     .dropdown li {
       display: block;
-      padding: 5px 15px;
+      padding: 0 10px;
     }
 
     .dropdown li a {
       font-size: 18px;
-      font-family: Montserrat;
+      font-family: Montserrat-Regular;
       display: block;
       color: black !important;
+      padding: 8px 0;
+      text-align: left;
     }
 
     .dropdown li a:hover {
@@ -164,19 +175,24 @@
         <a href="{{route('home')}}">Home</a>
       </li>
       <li class="nav-item-products">
-        <a href="#">Products <i class="fas fa-caret-down"></i></a>
+        <a href="{{ route('shop')}}">
+          {{ request('category') ? ucfirst(request('category')) : 'Products' }} <i class="fas fa-caret-down"></i>
+        </a>
         <ul class="dropdown">
-          <li><a href="#">Vegetables</a></li>
-          <li><a href="#">Fruits</a></li>
+          <li><a href="{{ route('shop', ['category' => 'vegetable']) }}">Vegetables</a></li>
+          <li><a href="{{ route('shop', ['category' => 'fruit']) }}">Fruits</a></li>
         </ul>
       </li>
       <li class="nav-item-cart">
         <a href="{{route('cart.show')}}">Cart</a><i class="fas fa-shopping-cart"></i>
       </li>
+      <!-- not sure pa here -->
       @if(Auth::guard('merchant')->check())
-        <li><a href="{{route('merchant.profile', Auth::guard('merchant')->user()->id)}}">Profile</a></li>
+      <!-- should be merchant profile but it doesn't exist yet -->
+        <li><a href="{{route('seller.profile', Auth::guard('merchant')->user()->id)}}">Profile</a></li>
         <li><a href="{{route('logout')}}" class="login-btn">Logout</a></li>
       @elseif(Auth::check())
+      <!-- user profile isn't done and not sure with its content yet -->
         <li><a href="{{route('user.profile')}}">Profile</a></li>
         <li><a href="{{route('logout')}}" class="login-btn">Logout</a></li>
       @else

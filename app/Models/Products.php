@@ -9,6 +9,28 @@ class Products extends Model
 {
     use HasFactory;
     protected $table = 'products';
+    
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'image',
+        'price',
+        'category',
+        'merchant_id'
+    ];
+
+    // Define available categories
+    const CATEGORY_FRUIT = 'fruit';
+    const CATEGORY_VEGETABLE = 'vegetable';
+
+    public static function getCategories()
+    {
+        return [
+            self::CATEGORY_FRUIT => 'Fruit',
+            self::CATEGORY_VEGETABLE => 'Vegetable'
+        ];
+    }
 
     public function merchant()
     {

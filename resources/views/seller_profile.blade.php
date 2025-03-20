@@ -18,6 +18,22 @@
         padding: 0;
         background-color: white;
     }
+    h3 {
+        background-image: url('{{ asset("images/farmer.jpg") }}');
+        background-size: cover; /* Ensures the image covers the full area */
+        background-position: center; /* Centers the image */
+        background-repeat: no-repeat; /* Prevents image repetition */
+        width: 450px;
+        height: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white; /* Adjust text color for better readability */
+        text-align: center;
+        font-size: 3rem;
+        padding: 20px;
+        font-family: 'Montserrat-Black', sans-serif;
+    }
     .profile-container {
         width: 100%;
         margin: 0;
@@ -137,7 +153,7 @@
 
     .card img {
         width: 100%;
-        height: 200px;
+        height: 180px;
         object-fit: cover;
         display: block;
         margin: 0 auto;
@@ -195,8 +211,8 @@
     .more-products {
         width: 90%;
         max-width: 1200px;
-        margin: 2rem auto;
-        padding: 20px;
+        margin-left: 75px;
+        padding: 15px;
     }
     .more-products-header {
         display: flex;
@@ -213,7 +229,7 @@
         margin: 0;
     }
     .more-products-title {
-        margin-left: 16rem;
+        margin-left: 19rem;
         font-size: 1.5rem;
         color: #000;
         margin-bottom: 2rem;
@@ -272,7 +288,7 @@
                     <h1 class="farmer-name">{{ $merchant->business_name }}</h1>
                     <div class="rating">
                         <span class="rating-value">
-                            <i class="fa-solid fa-star" style="color: #ffd700;"></i>
+                            <i class="fa-solid fa-star" style="color:rgb(0, 0, 0), 0);"></i>
                             {{ $averageRating }}
                         </span>
                         <span class="rating-count">({{ $totalReviews }} reviews)</span>

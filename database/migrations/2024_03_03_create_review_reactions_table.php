@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('review_reactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('review_id')->constrained('reviews')->onDelete('cascade');
+            $table->foreignId('review_id')->constrained('reviews')->onDelete('NO ACTION');
             $table->enum('type', ['like', 'dislike']);
             $table->timestamps();
 
